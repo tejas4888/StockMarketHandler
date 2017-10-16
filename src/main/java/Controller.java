@@ -12,6 +12,7 @@ public class Controller extends Application{
     {
         System.out.println("Hello");
         launch(args);
+        //Testing123
     }
 
     public void start(Stage primaryStage) throws Exception
