@@ -4,8 +4,10 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Button?>
+<VBox fx:controller="Handler" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Hello World" />
+      <Label text="Hello World" fx:id="countLabel" />
+      <Button text="Click ME!" onAction="#increment"/>
    </children>
 </VBox>
