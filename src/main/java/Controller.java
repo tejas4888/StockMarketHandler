@@ -29,12 +29,12 @@ public class Controller extends Application{
 
         try {
             //stockID can be found for various NASDAQ listed stocks from YahooFinance
-            StockInformation stockInformation=APICalls.GetPrice("CSCO");
+            /*StockInformation stockInformation=APICalls.GetPrice("CSCO");
             System.out.println("Current Price: "+stockInformation.currentPrice);
             System.out.println("Day high: "+stockInformation.dayHigh);
             System.out.println("Day low: "+stockInformation.dayLow);
             System.out.println("Amount change: "+stockInformation.change);
-
+*/
             Calendar from=Calendar.getInstance();
             //Below calendar will start from 2nd November
             from.set(2015,10,1);
