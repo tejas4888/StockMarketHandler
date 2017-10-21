@@ -54,9 +54,17 @@ public class Controller extends Application{
 
     public void start(Stage primaryStage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.show();*/
+
+        Parent root = FXMLLoader.load(getClass().getResource("/stockmarket.fxml"));
+        //VBox root = new VBox();
+        /// root.getChildren().addAll(btn,exit);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Stock Spartan");
         primaryStage.show();
     }
 }
