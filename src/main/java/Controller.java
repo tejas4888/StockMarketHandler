@@ -21,7 +21,7 @@ public class Controller extends Application{
         and make API calls for getting realtime data
     */
 
-    //Sample comment
+    //Final Comm
 
     public static void main(String args[])
     {
