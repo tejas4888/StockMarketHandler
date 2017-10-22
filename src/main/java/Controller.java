@@ -35,12 +35,12 @@ public class Controller extends Application{
             System.out.println("Day low: "+stockInformation.dayLow);
             System.out.println("Amount change: "+stockInformation.change);
 */
-            Calendar from=Calendar.getInstance();
+           /* Calendar from=Calendar.getInstance();
             //Below calendar will start from 2nd November
-            from.set(2015,10,1);
+            from.set(2015,6,1);
 
             Calendar to=Calendar.getInstance();
-            to.set(2016,1,1);
+            to.set(2016,5,1);
 
             //Inteval can be "DAILY","WEEKLY","MONTHLY" only
             ArrayList<HistoricalInformation> arrayList=APICalls.getRangedIntervalHistoricalQuote("CSCO",from,to,"MONTHLY");
@@ -49,6 +49,7 @@ public class Controller extends Application{
             {
                 System.out.println("Date: "+information.date+" Price: "+information.closingPrice);
             }
+*/
 
         }catch (Exception e){}
         launch(args);

@@ -3,6 +3,9 @@ import java.math.BigDecimal;
 /**
  * Created by Tejas on 16-10-2017.
  */
+
+
+
 public class StockInformation {
 
     BigDecimal currentPrice,dayHigh,dayLow,change;
@@ -18,9 +21,10 @@ public class StockInformation {
 
 class HistoricalInformation{
 
-    String date,closingPrice;
+    String date;
+            BigDecimal closingPrice;
 
-    HistoricalInformation(String date,String closingPrice)
+    HistoricalInformation(String date, BigDecimal closingPrice)
     {
         this.date=date;
         this.closingPrice=closingPrice;

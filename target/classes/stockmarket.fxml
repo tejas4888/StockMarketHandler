@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -16,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Handler">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Handler">
     <tabs>
         <Tab text="Portfolio">
             <content>
@@ -24,7 +27,7 @@
                     <children>
                         <HBox prefHeight="370.0" prefWidth="600.0">
                             <children>
-                                <TableView fx:id="table" onContextMenuRequested="#mouseClick" onMouseClicked="#mouseClick" prefHeight="322.0" prefWidth="600.0" tableMenuButtonVisible="true">
+                                <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onContextMenuRequested="#mouseClick" onMouseClicked="#mouseClick" prefHeight="487.0" prefWidth="783.0" tableMenuButtonVisible="true">
                                     <columns>
                                         <TableColumn fx:id="stock_name" prefWidth="75.0" text="Stock" />
                                         <TableColumn fx:id="stock_last" prefWidth="75.0" text="Last" />
@@ -110,16 +113,21 @@
         <Tab text="Watch List">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <AreaChart layoutX="17.0" layoutY="121.0" prefHeight="234.0" prefWidth="566.0">
-                            <xAxis>
-                                <CategoryAxis side="BOTTOM" />
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis side="LEFT" />
-                            </yAxis>
-                        </AreaChart>
-                    </children>
+               <children>
+                  <LineChart fx:id="lineChart" alternativeColumnFillVisible="true" focusTraversable="true" layoutX="33.0" layoutY="128.0" prefHeight="347.0" prefWidth="714.0" title="CHART 1">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+                  <Button layoutX="540.0" layoutY="51.0" mnemonicParsing="false" onAction="#btn" prefHeight="30.0" prefWidth="126.0" text="Load Chart" />
+                  <DatePicker fx:id="dp1" layoutX="313.0" layoutY="27.0" onAction="#btn" promptText="From" />
+                  <DatePicker fx:id="dp2" layoutX="313.0" layoutY="66.0" onAction="#btn" promptText="To" />
+                  <ComboBox fx:id="comboBox" layoutX="114.0" layoutY="66.0" prefWidth="150.0" promptText="Select Interval" />
+                  <ComboBox fx:id="comboBox1" layoutX="113.0" layoutY="26.0" prefHeight="26.0" prefWidth="152.0" promptText="Select Stock ID" />
+               </children>
                 </AnchorPane>
             </content>
         </Tab>

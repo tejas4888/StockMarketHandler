@@ -39,9 +39,9 @@ public class APICalls {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String stringcalendar=sdf.format(calendar.getTime());
 
-            String closingprice=String.valueOf(historicalQuote.getAdjClose());
+         BigDecimal closingprice=(historicalQuote.getAdjClose());
 
-            if(!closingprice.equals("null"))
+            if(!closingprice.equals(0))
             {
                 arrayList.add(new HistoricalInformation(stringcalendar,closingprice));
             }
