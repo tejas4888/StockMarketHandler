@@ -9,14 +9,14 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StockDetailHandler">
     <children>
         <Label fx:id="l_name" alignment="CENTER" layoutX="23.0" layoutY="29.0" prefHeight="28.0" prefWidth="84.0" text="Stock Name" textAlignment="CENTER">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <AreaChart layoutX="14.0" layoutY="192.0" prefHeight="175.0" prefWidth="554.0">
+        <AreaChart layoutX="14.0" layoutY="192.0"  id="StockChart">
             <xAxis>
                 <CategoryAxis side="BOTTOM" />
             </xAxis>
