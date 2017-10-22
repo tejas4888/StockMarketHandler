@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,6 +16,7 @@ import javafx.stage.Stage;
 import java.math.BigDecimal;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -72,6 +76,34 @@ public class Handler implements Initializable {
             //Opens a new window to display individual stock details
             Stage primaryStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("stock_a.fxml"));
+
+            AreaChart StockChart=(AreaChart) root.lookup("#StockChart");
+            StockChart.setTitle("Stock History");
+
+            String stockID="CSCO";
+            String currentSelection=table.getSelectionModel().getSelectedItem().getStock_name();
+
+            if(currentSelection.equals("INTEL")) {
+                stockID="INTC";
+            }else if(currentSelection.equals("Oracle")){
+                stockID="ORCL";
+            }else if (currentSelection.equals("HP")){
+                stockID="HPQ";
+            }
+
+            ArrayList<HistoricalInformation> arrayList=APICalls.getNormalHistoricalQuote(stockID);
+
+            XYChart.Series series = new XYChart.Series();
+            series.setName("Stock Price");
+
+            for (HistoricalInformation information:arrayList)
+            {
+                System.out.println("Date: "+information.date+" Price: "+information.closingPrice);
+                series.getData().add(new XYChart.Data(information.date,Float.parseFloat(information.closingPrice)));
+            }
+
+            StockChart.getData().add(series);
+
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle(table.getSelectionModel().getSelectedItem().getStock_name());
