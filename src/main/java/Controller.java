@@ -7,6 +7,9 @@ import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.HistoricalQuote;
 
+import java.math.BigDecimal;
+import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -52,6 +55,15 @@ public class Controller extends Application{
 */
 
         }catch (Exception e){}
+
+        // @hussain hard coded..link this call to buy stocks.
+        Commodity buy = new Commodity("CSCO");
+        buy.buyCommodity(1000, new BigDecimal(49.32));
+
+        // @hussain hard coded..link this call to sell stocks.
+        Commodity sell = new Commodity("HPQ");
+        sell.sellCommodity(new BigDecimal(27.56));
+
         launch(args);
     }
 

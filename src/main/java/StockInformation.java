@@ -22,7 +22,7 @@ public class StockInformation {
 class HistoricalInformation{
 
     String date;
-            BigDecimal closingPrice;
+    BigDecimal closingPrice;
 
     HistoricalInformation(String date, BigDecimal closingPrice)
     {
