@@ -39,7 +39,7 @@ public class APICalls {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String stringcalendar=sdf.format(calendar.getTime());
 
-         BigDecimal closingprice=(historicalQuote.getAdjClose());
+            BigDecimal closingprice=(historicalQuote.getAdjClose());
 
             if(!closingprice.equals(0))
             {

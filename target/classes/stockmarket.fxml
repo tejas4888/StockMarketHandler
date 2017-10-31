@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -27,13 +28,14 @@
                     <children>
                         <HBox prefHeight="370.0" prefWidth="600.0">
                             <children>
-                                <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onContextMenuRequested="#mouseClick" onMouseClicked="#mouseClick" prefHeight="487.0" prefWidth="783.0" tableMenuButtonVisible="true">
+                                <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onContextMenuRequested="#mouseClick" onMouseClicked="#mouseClick" prefHeight="444.0" prefWidth="780.0" tableMenuButtonVisible="true">
                                     <columns>
                                         <TableColumn fx:id="stock_name" prefWidth="75.0" text="Stock" />
                                         <TableColumn fx:id="stock_last" prefWidth="75.0" text="Last" />
                                         <TableColumn fx:id="stock_high" prefWidth="75.0" text="High" />
                                         <TableColumn fx:id="stock_low" prefWidth="75.0" text="Low" />
                                         <TableColumn fx:id="stock_change" prefWidth="75.0" text="Change %" />
+                              <TableColumn fx:id="stock_quantity" prefWidth="75.0" text="Quantity" />
                                     </columns>
                                     <columnResizePolicy>
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -41,6 +43,12 @@
                                 </TableView>
                             </children>
                         </HBox>
+                  <HBox layoutY="434.0" prefHeight="62.0" prefWidth="780.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#btn1" onContextMenuRequested="#btn" onMouseClicked="#btn" prefHeight="50.0" prefWidth="390.0" text="BUY STOCKS" />
+                        <Button mnemonicParsing="false" onAction="#btn2" onContextMenuRequested="#btn2" onMouseClicked="#btn2" prefHeight="50.0" prefWidth="390.0" text="SELL STOCKS" />
+                     </children>
+                  </HBox>
                     </children></AnchorPane>
             </content>
         </Tab>
@@ -54,59 +62,39 @@
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label prefWidth="200.0" text="Starting Investment" textAlignment="CENTER">
+                                <Label prefWidth="200.0" text="Total Number of Stocks" textAlignment="CENTER">
                                     <font>
                                         <Font name="Arial Black" size="14.0" />
                                     </font></Label>
                                 <Label text="Label" GridPane.columnIndex="1" />
-                                <Label prefHeight="18.0" prefWidth="200.0" text="Stocks Value" textAlignment="CENTER" GridPane.rowIndex="1">
+                                <Label prefHeight="18.0" prefWidth="200.0" text="Net Profit" textAlignment="CENTER" GridPane.rowIndex="1">
                                     <font>
                                         <Font name="Arial Black" size="14.0" />
                                     </font></Label>
                                 <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label prefWidth="200.0" text="Available Cash" textAlignment="CENTER" GridPane.rowIndex="2">
+                                <Label prefWidth="200.0" text="Top 3 Profitable Stocks" textAlignment="CENTER" GridPane.rowIndex="2">
                                     <font>
                                         <Font name="Arial Black" size="14.0" />
                                     </font></Label>
                                 <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Label prefWidth="200.0" text="Total Value" textAlignment="CENTER" GridPane.rowIndex="3">
+                                <Label prefHeight="22.0" prefWidth="221.0" text="Bottom 3 Profitable Stocks" textAlignment="CENTER" GridPane.rowIndex="3">
                                     <font>
                                         <Font name="Arial Black" size="14.0" />
                                     </font></Label>
                                 <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                <Label prefWidth="200.0" text="Position" textAlignment="CENTER" GridPane.rowIndex="4">
-                                    <font>
-                                        <Font name="Arial Black" size="14.0" />
-                                    </font></Label>
-                                <Label prefWidth="200.0" text="Total Transactions" textAlignment="CENTER" GridPane.rowIndex="5">
-                                    <font>
-                                        <Font name="Arial Black" size="14.0" />
-                                    </font></Label>
-                                <Label prefWidth="200.0" text="Positive Transactions" textAlignment="CENTER" GridPane.rowIndex="6">
-                                    <font>
-                                        <Font name="Arial Black" size="14.0" />
-                                    </font></Label>
-                                <Label prefWidth="200.0" text="Negative Transactions" textAlignment="CENTER" GridPane.rowIndex="7">
-                                    <font>
-                                        <Font name="Arial Black" size="14.0" />
-                                    </font></Label>
-                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <PieChart prefHeight="252.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="top3" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="stock_no" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="profit" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="bottom3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
-                        <PieChart layoutX="300.0" layoutY="59.0" prefHeight="252.0" prefWidth="270.0" />
                     </children></AnchorPane>
             </content>
         </Tab>
@@ -114,7 +102,7 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <LineChart fx:id="lineChart" alternativeColumnFillVisible="true" focusTraversable="true" layoutX="33.0" layoutY="128.0" prefHeight="347.0" prefWidth="714.0" title="CHART 1">
+                  <LineChart fx:id="lineChart" alternativeColumnFillVisible="true" focusTraversable="true" layoutX="33.0" layoutY="128.0" prefHeight="347.0" prefWidth="714.0" title="GRAPH">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -126,7 +114,7 @@
                   <DatePicker fx:id="dp1" layoutX="313.0" layoutY="27.0" onAction="#btn" promptText="From" />
                   <DatePicker fx:id="dp2" layoutX="313.0" layoutY="66.0" onAction="#btn" promptText="To" />
                   <ComboBox fx:id="comboBox" layoutX="114.0" layoutY="66.0" prefWidth="150.0" promptText="Select Interval" />
-                  <ComboBox fx:id="comboBox1" layoutX="113.0" layoutY="26.0" prefHeight="26.0" prefWidth="152.0" promptText="Select Stock ID" />
+                  <TextField fx:id="textField" layoutX="115.0" layoutY="27.0" promptText="Enter Stock Id" />
                </children>
                 </AnchorPane>
             </content>

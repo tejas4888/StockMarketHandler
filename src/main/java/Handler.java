@@ -15,10 +15,7 @@ import java.math.BigDecimal;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.ResourceBundle;
-
+import java.util.*;
 
 
 /**
@@ -34,39 +31,38 @@ public class Handler implements Initializable {
     @FXML public TableColumn<Commodity, BigDecimal> stock_high;
     @FXML public TableColumn<Commodity, BigDecimal> stock_low;
     @FXML public TableColumn<Commodity, BigDecimal > stock_change;
+    @FXML public TableColumn<Commodity, Integer> stock_quantity;
     @FXML public Label l_name;
     @FXML LineChart<String,BigDecimal> lineChart;
     @FXML DatePicker dp1;
     @FXML DatePicker dp2;
     @FXML public ComboBox<String> comboBox;
-    @FXML public ComboBox<String> comboBox1;
-
-    ObservableList<String> combolist = FXCollections.observableArrayList("YEARLY","MONTHLY","WEEKLY");
-    ObservableList<String> combolist1 = FXCollections.observableArrayList("CSCO","INTC","ORCL","HPQ");
+    @FXML public TextField textField;
 
 
+    //Use these labels for my account
+    @FXML public Label stock_no;
+    @FXML public Label profit;
+    @FXML public Label top3;
+    @FXML public Label bottom3;
 
-    StockInformation stockInformation=APICalls.GetPrice("CSCO");
-    StockInformation stockInformation1=APICalls.GetPrice("INTC");
-    StockInformation stockInformation2=APICalls.GetPrice("ORCL");
-    StockInformation stockInformation3=APICalls.GetPrice("HPQ");
-
-
-//test comment
 
 
     //Populate the table
-    public ObservableList<Commodity> list = FXCollections.observableArrayList(
-            new Commodity("CISCO", stockInformation.currentPrice, stockInformation.dayHigh,stockInformation.dayLow,stockInformation.change),
-            new Commodity("INTEL", stockInformation1.currentPrice, stockInformation1.dayHigh, stockInformation1.dayLow, stockInformation1.change),
-            new Commodity("Oracle", stockInformation2.currentPrice, stockInformation2.dayHigh, stockInformation2.dayLow, stockInformation2.change),
-            new Commodity("HP", stockInformation3.currentPrice, stockInformation3.dayHigh, stockInformation3.dayLow ,stockInformation3.change)
-    );
 
 
 
 
 
+
+    // @hussain this list also contains quantity and price_bought...create column and populate that too
+    public ObservableList<Commodity> list = Commodity.boughtCommodity();
+    //Populate combolist
+    ObservableList<String> combolist = FXCollections.observableArrayList("MONTHLY","WEEKLY","DAILY");
+
+
+    // @hussain need to add this combolist for selling stocks
+    ObservableList<String> combolist2 = Commodity.boughtCommodity("stock_name");
 
     @Override
     //Initialize the table -> Adding values to each column for a particular row
@@ -76,40 +72,40 @@ public class Handler implements Initializable {
         stock_high.setCellValueFactory(new PropertyValueFactory<Commodity, BigDecimal>("stock_high"));
         stock_low.setCellValueFactory(new PropertyValueFactory<Commodity, BigDecimal>("stock_low"));
         stock_change.setCellValueFactory(new PropertyValueFactory<Commodity, BigDecimal>("stock_change"));
-
+        stock_quantity.setCellValueFactory(new PropertyValueFactory<Commodity, Integer>("stock_quantity"));
         table.setItems(list);
         comboBox.setItems(combolist);
-        comboBox1.setItems(combolist1);
 
     }
-
 
     //Open Commodity Window. Right now Justs print the row values
     public void mouseClick(javafx.scene.input.MouseEvent mouseEvent) throws Exception {
-        if (mouseEvent.getClickCount() == 2) //Checking double click
+        if (mouseEvent.getClickCount() == 2) { //Checking double click
 
-    {
-        //Opens a new window to display individual stock details
-        Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("stock_a.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle(table.getSelectionModel().getSelectedItem().getStock_name());
-        primaryStage.show();
-
+            //Opens a new window to display individual stock details
+            Stage primaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("stock_a.fxml"));
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle(table.getSelectionModel().getSelectedItem().getStock_name());
+            primaryStage.show();
+        }
+        ;
     }
-}
+    public void labelchange(ActionEvent actionEvent) throws Exception{
+        stock_no.setText("Hello");
+    }
 
 
 
-//for calendar and charts , exception needs to be removed
-public void btn(ActionEvent event) throws Exception
-{
-    lineChart.getData().clear();
-    LocalDate date1 = dp1.getValue();
-    LocalDate date2 = dp2.getValue();
+    //for calendar and charts , exception needs to be removed
+    public void btn(ActionEvent event) throws Exception
+    {
+        lineChart.getData().clear();
+        LocalDate date1 = dp1.getValue();
+        LocalDate date2 = dp2.getValue();
 
-      Calendar from=Calendar.getInstance();
+        Calendar from=Calendar.getInstance();
         //Select the same day of the month  for both calendar for "Monthly"
         from.set(date1.getYear(),date1.getMonthValue(),date1.getDayOfMonth());
 
@@ -117,16 +113,40 @@ public void btn(ActionEvent event) throws Exception
         to.set(date2.getYear(),date2.getMonthValue(),date2.getDayOfMonth());
 
         //Inteval can be "DAILY","WEEKLY","MONTHLY" only
-        ArrayList<HistoricalInformation> arrayList=APICalls.getRangedIntervalHistoricalQuote(comboBox1.getValue(),from,to,comboBox.getValue());
+        ArrayList<HistoricalInformation> arrayList=APICalls.getRangedIntervalHistoricalQuote(textField.getText(),from,to,comboBox.getValue());
 
         XYChart.Series<String,BigDecimal> series = new XYChart.Series<String, BigDecimal>();
         for (HistoricalInformation information:arrayList)
-        {    series.getData().add(new XYChart.Data<String, BigDecimal>(information.date,information.closingPrice));
+        {
+            series.getData().add(new XYChart.Data<String, BigDecimal>(information.date,information.closingPrice));
             System.out.println("Date: "+information.date+" Price: "+information.closingPrice);
         }
         lineChart.getData().addAll(series);
-
     }
+
+
+
+    public void btn1(ActionEvent event) throws Exception
+    {
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("buy_stock.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        //primaryStage.setTitle(table.getSelectionModel().getSelectedItem().getStock_name());
+
+
+
+        primaryStage.show();
+    }
+    public void btn2(ActionEvent event) throws Exception
+    {
+        Stage primaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("sell_stock.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        //primaryStage.setTitle(table.getSelectionModel().getSelectedItem().getStock_name());
+        primaryStage.show();
+    }
+
+
 }
-
-
