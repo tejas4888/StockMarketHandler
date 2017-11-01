@@ -15,11 +15,6 @@ import java.util.Scanner;
  */
 public class Commodity {
 
-
-     static Scanner sc = new Scanner(System.in);
-
-    public static String s = sc.next();
-
     private String stock_name;
     private BigDecimal stock_last;
     private BigDecimal stock_high;
@@ -27,7 +22,6 @@ public class Commodity {
     private BigDecimal stock_change;
     private int stock_quantity;
     private BigDecimal stock_price_bought;
-    private BigDecimal stock_price_sold;
     private BigDecimal stock_profit;
 
     public Commodity(String stock_name) {
@@ -68,31 +62,21 @@ public class Commodity {
     void buyCommodity(int stock_quantity){
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
-            Statement stmt=con.createStatement();
             String query = "insert into stocksbought (Stock, Quantity, Price) values ('"+stock_name+"','"+stock_quantity+"','"+stock_last+"');";
-            if ((stmt.executeUpdate(query)== 0)){
+            if ((Controller.stmt.executeUpdate(query)== 0)){
                 System.out.println("Cannot buy stock!");
             }
-
-            con.close();
         }catch(Exception e){ System.out.println(e);}
     }
 
     static ObservableList<Commodity> boughtCommodity(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from stocksbought where soldstatus = 0;");
+            ResultSet rs=Controller.stmt.executeQuery("select * from stocksbought where soldstatus = 0;");
 
             ObservableList<Commodity> list = FXCollections.observableArrayList();
             while(rs.next()) {
                 list.add(new Commodity(rs.getString(2), rs.getInt(3), rs.getBigDecimal(4)));
             }
-
-            con.close();
             return list;
         }catch(Exception e){ System.out.println(e);}
         return null;
@@ -100,17 +84,12 @@ public class Commodity {
 
     static ObservableList<String> boughtCommodity(String only_stock_name){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from stocksbought where soldstatus = 0;");
+            ResultSet rs=Controller.stmt.executeQuery("select * from stocksbought where soldstatus = 0;");
 
             ObservableList<String> list = FXCollections.observableArrayList();
             while(rs.next()) {
                 list.add(rs.getString(2));
             }
-
-            con.close();
             return list;
         }catch(Exception e){ System.out.println(e);}
         return null;
@@ -119,13 +98,10 @@ public class Commodity {
     void sellCommodity(){
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
-            Statement stmt=con.createStatement();
             String query;
 
             query = "select * from stocksbought where (Stock = '"+stock_name+"') and (soldstatus = 0);";
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs = Controller.stmt.executeQuery(query);
             rs.next();
             int transID = rs.getInt(1);
             stock_quantity = rs.getInt(3);
@@ -133,17 +109,15 @@ public class Commodity {
             stock_profit = (stock_last.subtract(stock_price_bought).multiply(new BigDecimal(stock_quantity)));
 
             query = "update stocksbought set soldstatus = 1 where TransID = "+transID+";";
-            if ((stmt.executeUpdate(query)== 0)){
+            if ((Controller.stmt.executeUpdate(query)== 0)){
                 System.out.println("Cannot mark stock as sold!");
             }
 
             query = "insert into stockssold (TransID, Stock, Quantity, Price, Profit) " +
                     "values ('"+transID+"','"+stock_name+"','"+stock_quantity+"','"+stock_last+"','"+stock_profit+"');";
-            if ((stmt.executeUpdate(query)== 0)){
+            if ((Controller.stmt.executeUpdate(query)== 0)){
                 System.out.println("Cannot sell stock!");
             }
-
-            con.close();
         }catch(Exception e){ System.out.println(e);}
 
     }
@@ -151,16 +125,11 @@ public class Commodity {
     public static String getStocksValue(){
         double value=0;
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from stocksbought where soldstatus = 0;");
+            ResultSet rs=Controller.stmt.executeQuery("select * from stocksbought where soldstatus = 0;");
 
             while(rs.next()) {
                 value += rs.getDouble(3) * rs.getDouble(4);
             }
-
-            con.close();
             return String.valueOf(value);
         }catch(Exception e){ System.out.println(e);}
         return null;
@@ -169,16 +138,11 @@ public class Commodity {
     public static String getTotalProfit(){
         String profit="";
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select sum(profit) from stockssold;");
+            ResultSet rs=Controller.stmt.executeQuery("select sum(profit) from stockssold;");
 
             while(rs.next()) {
                 profit = rs.getString(1);
             }
-
-            con.close();
             return profit;
         }catch(Exception e){ System.out.println(e);}
         return null;
@@ -187,16 +151,12 @@ public class Commodity {
     public static String getTopProfit(){
         String profit="";
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from stockssold order by profit desc;");
+
+            ResultSet rs=Controller.stmt.executeQuery("select * from stockssold order by profit desc;");
 
             while(rs.next()) {
                 profit += rs.getString(2)+ "\n";
             }
-
-            con.close();
             return profit;
         }catch(Exception e){ System.out.println(e);}
         return null;
@@ -205,16 +165,11 @@ public class Commodity {
     public static String getBottomProfit(){
         String profit="";
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from stockssold order by profit asc limit 3;");
+            ResultSet rs=Controller.stmt.executeQuery("select * from stockssold order by profit asc limit 3;");
 
             while(rs.next()) {
                 profit += rs.getString(2) + "\n";
             }
-
-            con.close();
             return profit;
         }catch(Exception e){ System.out.println(e);}
         return null;
