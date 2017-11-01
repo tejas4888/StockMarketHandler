@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -20,7 +25,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Handler">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Handler">
     <tabs>
         <Tab text="Portfolio">
             <content>
@@ -45,8 +50,9 @@
                         </HBox>
                   <HBox layoutY="434.0" prefHeight="62.0" prefWidth="780.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#btn1" onContextMenuRequested="#btn" onMouseClicked="#btn" prefHeight="50.0" prefWidth="390.0" text="BUY STOCKS" />
-                        <Button mnemonicParsing="false" onAction="#btn2" onContextMenuRequested="#btn2" onMouseClicked="#btn2" prefHeight="50.0" prefWidth="390.0" text="SELL STOCKS" />
+                        <Button mnemonicParsing="false" onAction="#btn1" onContextMenuRequested="#btn" onMouseClicked="#btn" prefHeight="50.0" prefWidth="336.0" text="BUY STOCKS" />
+                        <Button mnemonicParsing="false" onAction="#btn2" onContextMenuRequested="#btn2" onMouseClicked="#btn2" prefHeight="50.0" prefWidth="303.0" text="SELL STOCKS" />
+                        <Button mnemonicParsing="false" onAction="#btn3" onContextMenuRequested="#btn3" onMouseClicked="#btn3" prefHeight="46.0" prefWidth="143.0" style="-fx-background-color: #98FB98;" text="Refresh" />
                      </children>
                   </HBox>
                     </children></AnchorPane>
@@ -72,27 +78,22 @@
                                     <font>
                                         <Font name="Arial Black" size="14.0" />
                                     </font></Label>
-                                <Label text="Label" GridPane.columnIndex="1" />
                                 <Label prefHeight="18.0" prefWidth="200.0" text="Net Profit" textAlignment="CENTER" GridPane.rowIndex="1">
                                     <font>
                                         <Font name="Arial Black" size="14.0" />
                                     </font></Label>
-                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <Label prefWidth="200.0" text="Top 3 Profitable Stocks" textAlignment="CENTER" GridPane.rowIndex="2">
                                     <font>
                                         <Font name="Arial Black" size="14.0" />
                                     </font></Label>
-                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <Label prefHeight="22.0" prefWidth="221.0" text="Bottom 3 Profitable Stocks" textAlignment="CENTER" GridPane.rowIndex="3">
                                     <font>
                                         <Font name="Arial Black" size="14.0" />
                                     </font></Label>
-                                <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <PieChart prefHeight="252.0" prefWidth="270.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label fx:id="bottom3" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="top3" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="stock_no" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="profit" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="bottom3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
                     </children></AnchorPane>

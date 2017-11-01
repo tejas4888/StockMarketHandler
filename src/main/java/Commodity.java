@@ -147,4 +147,76 @@ public class Commodity {
         }catch(Exception e){ System.out.println(e);}
 
     }
+
+    public static String getStocksValue(){
+        double value=0;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from stocksbought where soldstatus = 0;");
+
+            while(rs.next()) {
+                value += rs.getDouble(3) * rs.getDouble(4);
+            }
+
+            con.close();
+            return String.valueOf(value);
+        }catch(Exception e){ System.out.println(e);}
+        return null;
+    }
+
+    public static String getTotalProfit(){
+        String profit="";
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery("select sum(profit) from stockssold;");
+
+            while(rs.next()) {
+                profit = rs.getString(1);
+            }
+
+            con.close();
+            return profit;
+        }catch(Exception e){ System.out.println(e);}
+        return null;
+    }
+
+    public static String getTopProfit(){
+        String profit="";
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from stockssold order by profit desc;");
+
+            while(rs.next()) {
+                profit += rs.getString(2)+ "\n";
+            }
+
+            con.close();
+            return profit;
+        }catch(Exception e){ System.out.println(e);}
+        return null;
+    }
+
+    public static String getBottomProfit(){
+        String profit="";
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/StockMarketHandler","root",s);
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from stockssold order by profit asc limit 3;");
+
+            while(rs.next()) {
+                profit += rs.getString(2) + "\n";
+            }
+
+            con.close();
+            return profit;
+        }catch(Exception e){ System.out.println(e);}
+        return null;
+    }
 }

@@ -11,6 +11,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import java.net.URL;
@@ -23,7 +25,7 @@ import java.util.*;
  */
 
 
-public class Handler implements Initializable {
+public class Handler  implements Initializable {
 
     @FXML public TableView<Commodity> table;
     @FXML public TableColumn<Commodity, String> stock_name;
@@ -40,11 +42,13 @@ public class Handler implements Initializable {
     @FXML public TextField textField;
 
 
+
     //Use these labels for my account
     @FXML public Label stock_no;
     @FXML public Label profit;
     @FXML public Label top3;
     @FXML public Label bottom3;
+
 
 
 
@@ -64,6 +68,10 @@ public class Handler implements Initializable {
     // @hussain need to add this combolist for selling stocks
     ObservableList<String> combolist2 = Commodity.boughtCommodity("stock_name");
 
+    public Handler() throws IOException {
+    }
+
+
     @Override
     //Initialize the table -> Adding values to each column for a particular row
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,7 +83,10 @@ public class Handler implements Initializable {
         stock_quantity.setCellValueFactory(new PropertyValueFactory<Commodity, Integer>("stock_quantity"));
         table.setItems(list);
         comboBox.setItems(combolist);
-
+        stock_no.setText(Commodity.getStocksValue());
+        profit.setText(Commodity.getTotalProfit());
+        top3.setText(Commodity.getTopProfit());
+        bottom3.setText(Commodity.getBottomProfit());
     }
 
     //Open Commodity Window. Right now Justs print the row values
@@ -89,6 +100,7 @@ public class Handler implements Initializable {
             primaryStage.setScene(scene);
             primaryStage.setTitle(table.getSelectionModel().getSelectedItem().getStock_name());
             primaryStage.show();
+
         }
         ;
     }
@@ -128,25 +140,35 @@ public class Handler implements Initializable {
 
     public void btn1(ActionEvent event) throws Exception
     {
-        Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("buy_stock.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        //primaryStage.setTitle(table.getSelectionModel().getSelectedItem().getStock_name());
+        Stage  primaryStage1 = new Stage();
+        Parent root1 = FXMLLoader.load(getClass().getResource("buy_stock.fxml"));
+        Scene scene1 = new Scene(root1);
+        primaryStage1.setScene(scene1);
+        primaryStage1.setTitle("Buy Stock");
+        primaryStage1.show();
 
-
-
-        primaryStage.show();
     }
     public void btn2(ActionEvent event) throws Exception
     {
-        Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("sell_stock.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        //primaryStage.setTitle(table.getSelectionModel().getSelectedItem().getStock_name());
-        primaryStage.show();
+        Stage primaryStage2 = new Stage();
+        Parent root2 = FXMLLoader.load(getClass().getResource("sell_stock.fxml"));
+        Scene scene2 = new Scene(root2);
+        primaryStage2.setScene(scene2);
+        primaryStage2.setTitle("Sell Stock");
+        primaryStage2.show();
     }
 
+   public void btn3(ActionEvent actionEvent) throws Exception{
+        stock_name.setCellValueFactory(new PropertyValueFactory<Commodity, String>("stock_name"));
+        stock_last.setCellValueFactory(new PropertyValueFactory<Commodity, BigDecimal>("stock_last"));
+        stock_high.setCellValueFactory(new PropertyValueFactory<Commodity, BigDecimal>("stock_high"));
+        stock_low.setCellValueFactory(new PropertyValueFactory<Commodity, BigDecimal>("stock_low"));
+        stock_change.setCellValueFactory(new PropertyValueFactory<Commodity, BigDecimal>("stock_change"));
+        stock_quantity.setCellValueFactory(new PropertyValueFactory<Commodity, Integer>("stock_quantity"));
+        comboBox.setItems(combolist);
+        list.clear();
+        list =  Commodity.boughtCommodity();
+        table.setItems(list);
 
+    }
 }
