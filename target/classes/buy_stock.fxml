@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StockDetailHandler">
+   <children>
+      <TextField fx:id="textField" layoutX="114.0" layoutY="53.0" promptText="Enter Stock ID" />
+      <Button layoutX="169.0" layoutY="153.0" mnemonicParsing="false" onAction="#btn2" onContextMenuRequested="#btn2" onMouseClicked="#btn2" text="Add" />
+      <TextField fx:id="textField1" layoutX="114.0" layoutY="99.0" promptText="Enter Stock Quantity" />
+   </children>
+</AnchorPane>
